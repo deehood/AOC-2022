@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import { loadavg } from "os";
 
 const data = fs.readFileSync("data.txt", "utf8").split("\n");
 
