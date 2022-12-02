@@ -1,30 +1,21 @@
 import * as fs from "fs";
-
 const data = fs.readFileSync("data.txt", "utf8").split("\n");
 
-let dwarf = 0;
-let sum = 0;
-let store = {};
+let dwarf = 0,
+  sum = 0;
+let arr = [];
 
-for (let i = 0; i < data.length; i++) {
-  if (data[i]) sum += parseInt(data[i]);
+data.forEach((value) => {
+  if (value) sum += parseInt(value);
   else {
-    store[sum] = dwarf;
+    arr[dwarf] = sum;
     dwarf++;
     sum = 0;
   }
-}
+});
 
-const arr = Object.keys(store);
-
+arr = arr.sort((a, b) => b - a);
 //1
-console.log(arr[arr.length - 1]);
-
+console.log(arr[0]);
 //2
-let result = 0;
-
-for (let i = arr.length - 1; i > arr.length - 4; i--) {
-  result += parseInt(arr[i]);
-}
-
-console.log(result);
+console.log(arr[0] + arr[1] + arr[2]);
