@@ -6,6 +6,7 @@ const isInAllGroups = (str) =>
 
 function check(group) {
   const map = {};
+
   group.map((str, indexString) => {
     [...str].map((letter) => {
       if (!map[letter]) map[letter] = "";
@@ -13,15 +14,11 @@ function check(group) {
     });
   });
 
-  return Object.entries(map).reduce((sum, current) => {
-    if (isInAllGroups(current[1])) {
-      sum =
-        current[0].charCodeAt(0) > 96
-          ? current[0].charCodeAt(0) - 96
-          : current[0].charCodeAt(0) - 38;
-    }
-    return sum;
-  }, 0);
+  for (let str of Object.entries(map)) {
+    if (isInAllGroups(str[1]))
+      return str[0].charCodeAt(0) > 96 ? str[0].charCodeAt(0) - 96 : str[0].charCodeAt(0) - 38;
+  }
+  return 0;
 }
 
 const groups = data.length / 3;
