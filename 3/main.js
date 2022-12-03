@@ -5,7 +5,7 @@ const isMixed = (str) =>
   [...str].reduce((isMixed, next) => (isMixed = next !== str[0] ? true : false), false);
 
 function check(str) {
-  let map = {};
+  const map = {};
   [...str].map((letter, index) => {
     if (!map[letter]) map[letter] = "";
     map[letter] += index < str.length / 2 ? "a" : "b";
