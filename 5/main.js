@@ -24,7 +24,7 @@ const setInstructions = () =>
 
 //1
 const actions1 = () =>
-  setInstructions().forEach((line, index) => {
+  setInstructions().forEach((line) => {
     for (let i = 0; i < parseInt(line[0]); i++) stacks[line[2]].push(stacks[line[1]].pop());
   });
 //2
