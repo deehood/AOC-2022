@@ -16,16 +16,24 @@ const stacks = {};
   });
 })();
 
-const instructions = () =>
+const setInstructions = () =>
   data
     .filter((line) => line[0] === "m")
     .map((line) => line.match(/\d+/g))
     .reverse();
 
-instructions().forEach((line, index) => {
-  for (let i = 0; i < parseInt(line[0]); i++) stacks[line[2]].push(stacks[line[1]].pop());
-});
+//1
+const actions1 = () =>
+  setInstructions().forEach((line, index) => {
+    for (let i = 0; i < parseInt(line[0]); i++) stacks[line[2]].push(stacks[line[1]].pop());
+  });
+//2
+const actions2 = () =>
+  setInstructions().forEach((line) =>
+    stacks[line[2]].push(...stacks[line[1]].splice(-line[0], line[0]))
+  );
 
+actions2();
 const result = Object.values(stacks)
   .map((x) => x.slice(-1))
   .join("");
