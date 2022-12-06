@@ -4,7 +4,6 @@ const data = fs.readFileSync("data", "utf8").split("");
 const isUnique = (arr) => arr.length === new Set(arr).size;
 
 //1 let i = 4;
-
 //2
 let i = 14;
 
