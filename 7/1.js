@@ -40,4 +40,5 @@ const result = sysArray
     return (sum += getDirSize(next[0]));
   }, 0);
 
+console.log("dirSize /", getDirSize(["/"]));
 console.log(result);
