@@ -1,5 +1,5 @@
 import * as fs from "fs";
-const data = fs.readFileSync("data3", "utf8").split("\n");
+const data = fs.readFileSync("data2", "utf8").split("\n");
 
 class Rope {
   constructor(name, x, y) {
@@ -45,29 +45,44 @@ const T = [];
 for (let i = 1; i < 10; i++) {
   T.push(new Rope(i.toString(), 0, 0));
 }
-console.log(T);
+let parent = [];
+let inst = "";
+let val = "";
 for (let line of data) {
-  let [inst, val] = [...line.split(" ")];
+  [inst, val] = [...line.split(" ")];
 
   for (let i = 1; i <= parseInt(val); i++) {
     H.instruction(inst);
-    if (!isTouching(H.getPos(), T[0].getPos())) {
-      isSideways(H.getPos(), T[0].getPos())
-        ? T[0].setPos(H.history[H.history.length - 2].x, H.history[H.history.length - 2].y)
-        : T[0].instruction(inst);
+
+    if (inst === "U") {
+      console.log(
+        T.map((el) => {
+          return { name: el.name, x: el.x, y: el.y };
+        })
+      );
+
+      console.log(inst);
+      console.log({ name: H.name, x: H.x, y: H.y });
     }
 
-    for (let j = 1; j < 9; j++)
-      if (!isTouching(T[j - 1].getPos(), T[j].getPos())) {
-        isSideways(T[j - 1].getPos(), T[j].getPos())
+    for (let j = 0; j < 9; j++) {
+      parent = j > 0 ? T[j - 1] : H;
+      if (!isTouching(parent.getPos(), T[j].getPos())) {
+        isSideways(parent.getPos(), T[j].getPos())
           ? T[j].setPos(
-              T[j - 1].history[T[j - 1].history.length - 2].x,
-              T[j - 1].history[T[j - 1].history.length - 2].y
+              parent.history[parent.history.length - 2].x,
+              parent.history[parent.history.length - 2].y
             )
           : T[j].instruction(inst);
       }
+    }
   }
 }
+// console.log("H", H);
+// console.log("T8", T[7]);
+// console.log("T9", T[8]);
+// console.log("T1", T[0]);
+// console.log("T2", T[1]);
 
-const result = new Set(T.history.map((x) => JSON.stringify(x)));
+const result = new Set(T[8].history.map((x) => JSON.stringify(x)));
 console.log("visited", result.size);
