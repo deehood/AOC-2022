@@ -15,25 +15,24 @@ function rot90() {
   }
 }
 
-const checkSide = (direction) => {
+const checkSide = () => {
   let line = [];
-  let max = 0;
 
   for (let i = 1; i < newData.length - 1; i++) {
     line = newData[i];
-    max = parseInt(line[0].val);
-    for (let j = 1; j < line.length - 1; j++) {
-      if (parseInt(line[j].val) > max) {
-        newData[i][j].visible.push(direction);
-        max = newData[i][j].val;
+    for (let j = 1; j < line.length; j++) {
+      let k = 1;
+      for (; k + j <= line.length - 2; k++) {
+        if (parseInt(line[j].val) <= parseInt(line[j + k].val)) break;
       }
+      newData[i][j].trees.push(k);
     }
   }
 };
 
 let newData = data.map((line, i1) =>
   line.map((_, i2) => {
-    return { pos: i1.toString() + i2.toString(), val: line[i2], visible: [] };
+    return { pos: i1.toString() + i2.toString(), val: line[i2], trees: [] };
   })
 );
 
@@ -45,15 +44,9 @@ checkSide("E");
 rot90();
 checkSide("S");
 
-const res = newData.reduce(
-  (acc, line) =>
-    acc +
-    line.reduce((sum, pos) => {
-      sum += pos.visible.length > 0 ? 1 : 0;
-      return sum;
-    }, 0),
-  0
+const resArray = newData.map((line) =>
+  line.map((item) => item.trees.reduce((product, next) => product * parseInt(next), 1))
 );
 
-const edge = data.length * 4 - 4;
-console.log("visible", res + edge);
+const res = Math.max(...resArray.map((line) => Math.max(...line)));
+console.log("res", res);
