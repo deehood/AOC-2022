@@ -6,7 +6,7 @@ function rot90() {
   let n = newData.length;
   for (let i = 0; i < n / 2; i++) {
     for (let j = i; j < n - i - 1; j++) {
-      var tmp = newData[i][j];
+      let tmp = newData[i][j];
       newData[i][j] = newData[j][n - i - 1];
       newData[j][n - i - 1] = newData[n - i - 1][n - j - 1];
       newData[n - i - 1][n - j - 1] = newData[n - j - 1][i];
