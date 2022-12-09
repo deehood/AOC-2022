@@ -40,17 +40,12 @@ newData = data.map((line, i1) =>
 );
 
 checkSide("W");
-console.log("W", newData);
 rot90();
-
 checkSide("N");
-console.log("N", newData);
 rot90();
 checkSide("E");
-console.log("E", newData);
 rot90();
 checkSide("S");
-console.log("S", newData);
 
 const res = newData.reduce(
   (acc, line) =>
