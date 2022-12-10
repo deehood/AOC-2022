@@ -44,10 +44,10 @@ for (let i = 1; i < 10; i++) {
   T.push(new Rope(i.toString(), 0, 0));
 }
 
-const dots = (size) => {
+const drawTable = (size) => {
   let offset = size / 2;
   let rows = [];
-  let dots = [];
+  let table = [];
   let chr = ".";
   for (let i = size - 1; i >= 0; i--) {
     rows[i] = [];
@@ -61,9 +61,9 @@ const dots = (size) => {
       }
       rows[i].push(chr);
     }
-    dots.push(rows[i]);
+    table.push(rows[i]);
   }
-  return dots;
+  return table;
 };
 
 let parent = [];
@@ -136,10 +136,10 @@ for (let line of data) {
   }
 
   console.log(inst, val);
-  console.table(dots(30));
+  console.table(drawTable(30));
 }
 
-console.log("T9", T[8]);
+console.log("Tail", T[8]);
 
 const result = new Set(T[8].history.map((x) => JSON.stringify(x)));
 
