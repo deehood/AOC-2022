@@ -21,7 +21,7 @@ const readNext = () => {
   return [wait, add];
 };
 
-while (ip < inst.length + deltaClock - 1) {
+while (ip < inst.length + deltaClock) {
   cycle++;
   if (deltaClock > 0) deltaClock--;
   if (deltaClock === 0) x += deltaX;
