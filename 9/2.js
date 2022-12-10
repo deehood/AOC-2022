@@ -45,10 +45,10 @@ for (let i = 1; i < 10; i++) {
 }
 
 const drawTable = (size) => {
-  let offset = size / 2;
   let rows = [];
   let table = [];
   let chr = ".";
+  let offset = size / 2;
   for (let i = size - 1; i >= 0; i--) {
     rows[i] = [];
 
@@ -136,7 +136,7 @@ for (let line of data) {
   }
 
   console.log(inst, val);
-  console.table(drawTable(30));
+  console.table(drawTable(20));
 }
 
 console.log("Tail", T[8]);
