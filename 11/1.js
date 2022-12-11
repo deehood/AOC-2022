@@ -1,6 +1,3 @@
-import * as fs from "fs";
-const data = fs.readFileSync("data", "utf8").split("\n");
-
 class Monkey {
   constructor(name, initialItems, operation, test, positive, negative) {
     this.name = name;
