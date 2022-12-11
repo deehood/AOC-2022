@@ -12,10 +12,6 @@ class Monkey {
     this.items.push(item);
   }
 
-  operation() {
-    this.new = operation(old);
-  }
-
   runTest(item) {
     return item % this.test === 0;
   }
