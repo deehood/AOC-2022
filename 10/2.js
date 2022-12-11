@@ -9,7 +9,6 @@ let deltaX = 0;
 let deltaClock = 0;
 let hPos = 0;
 let vPos = 0;
-
 let line = [];
 let screen = [];
 
@@ -35,8 +34,10 @@ const readNext = () => {
 while (ip < inst.length + deltaClock) {
   cycle++;
   if (deltaClock > 0) deltaClock--;
-  if (deltaClock === 0) x += deltaX;
-  if (deltaClock === 0) [deltaClock, deltaX] = readNext();
+  if (deltaClock === 0) {
+    x += deltaX;
+    [deltaClock, deltaX] = readNext();
+  }
 
   vPos = Math.floor(cycle / 40);
   hPos = cycle - vPos * 40 - 1;
