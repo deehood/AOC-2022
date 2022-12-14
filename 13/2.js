@@ -1,13 +1,9 @@
 import * as fs from "fs";
 const data = fs
-  .readFileSync("data2", "utf8")
+  .readFileSync("data", "utf8")
   .split("\n")
   .filter((x) => x !== "")
   .map((x) => JSON.parse(x));
-
-const left = data.filter((_, index) => index % 2 === 0);
-const right = data.filter((_, index) => index % 2 !== 0);
-const correct = [];
 
 const isNumber = (x) => typeof x === "number";
 const isArray = (x) => typeof x === "object";
@@ -35,11 +31,16 @@ const isCorrect = (l, r) => {
   }
 };
 
-for (let i = 0; i < left.length; i++) {
-  if (isCorrect(left[i], right[i]) === 1) correct.push(i + 1);
+let orderedData = [];
+data.push([[2]]);
+data.push([[6]]);
+for (let i = 0; i < data.length; i++) {
+  orderedData = data.sort((a, b) => isCorrect(b, a));
 }
-const result = correct.reduce((sum, next) => sum + next, 0);
-console.log(correct);
-console.log("result", result);
 
-data.map((x) => console.log(JSON.stringify(x)));
+const res = orderedData.reduce((product, next, index) => {
+  if (JSON.stringify(next) === "[[2]]" || JSON.stringify(next) === "[[6]]")
+    return product * (index + 1);
+  return product;
+}, 1);
+console.log("resp", res);
