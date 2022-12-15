@@ -24,10 +24,9 @@ const row = new Array((maxC - minC) * 10 + 1).fill(".");
 
 for (let i = 0; i < maxR + 2; i++) cave.push([...row]);
 const floor = new Array((maxC - minC) * 10 + 1).fill("#");
+cave.push(floor);
 
 const OFFSET_C = minC - Math.floor(floor.length / 2);
-
-cave.push(floor);
 
 for (let k = 0; k < data.length; k++) {
   let deltaC = 0;
@@ -37,8 +36,6 @@ for (let k = 0; k < data.length; k++) {
     let fromCol = data[k][i][1] - OFFSET_C;
     let toRow = data[k][i + 1][0];
     let toCol = data[k][i + 1][1] - OFFSET_C;
-
-    // console.log("from", fromRow, fromCol, "to", toRow, toCol);
 
     // delta- Down  delta+UP
     deltaR = fromRow - toRow;
@@ -96,16 +93,14 @@ class Sand {
 }
 
 const sand = [];
-for (let i = 1; i < 100; i++) {
+for (let i = 1; i < 100000; i++) {
   sand[i] = new Sand(i, 0, 500);
   while (sand[i].stop === false) {
     sand[i].fall();
   }
-  console.log(sand[i].r, sand[i].c, sand[i].stop);
+  console.log(i, sand[i].r, sand[i].c, sand[i].stop);
   if (sand[i].r === 0 && sand[i].c === 500 && sand[i].stop === true) {
     console.log(`sand ${sand[i].name} blocked the hole`);
     break;
   }
 }
-
-// print(cave);
