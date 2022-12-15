@@ -17,11 +17,17 @@ const print = (arr) => arr.map((line) => console.log(line.join("")));
 const maxR = Math.max(...data.flat().map((pos) => pos[0]));
 const maxC = Math.max(...data.flat().map((pos) => pos[1]));
 const minC = Math.min(...data.flat().map((pos) => pos[1]));
-const OFFSET_C = minC - Math.floor((maxC - minC) / 2);
+
 const cave = [];
 
-const row = new Array((maxC - minC) * 2 + 1).fill(".");
-for (let i = 0; i < maxR + 1; i++) cave.push([...row]);
+const row = new Array((maxC - minC) * 10 + 1).fill(".");
+
+for (let i = 0; i < maxR + 2; i++) cave.push([...row]);
+const floor = new Array((maxC - minC) * 10 + 1).fill("#");
+
+const OFFSET_C = minC - Math.floor(floor.length / 2);
+
+cave.push(floor);
 
 for (let k = 0; k < data.length; k++) {
   let deltaC = 0;
@@ -32,10 +38,13 @@ for (let k = 0; k < data.length; k++) {
     let toRow = data[k][i + 1][0];
     let toCol = data[k][i + 1][1] - OFFSET_C;
 
+    // console.log("from", fromRow, fromCol, "to", toRow, toCol);
+
     // delta- Down  delta+UP
     deltaR = fromRow - toRow;
     let startR = deltaR < 0 ? fromRow : fromRow - deltaR;
     for (let j = 0; j <= Math.abs(deltaR); j++) {
+      console.log(startR + j, fromCol);
       if (startR + j < maxR) cave[startR + j][fromCol] = "#";
     }
 
@@ -44,6 +53,7 @@ for (let k = 0; k < data.length; k++) {
     deltaC = fromCol - toCol;
     let startC = deltaC > 0 ? fromCol - deltaC : fromCol;
     for (let j = 0; j <= Math.abs(deltaC); j++) {
+      console.log(j, startC);
       if (startC + j < maxC) cave[fromRow][startC + j] = "#";
     }
   }
@@ -75,7 +85,8 @@ class Sand {
     }
   }
   findObstacle(r, c) {
-    if (c - OFFSET_C < 0 || c > maxC || r < 0 || r > maxR) {
+    if (r === 0) {
+      console.log(c);
       print(cave);
       console.log(` ${this.name - 1} sand in the grid`);
       process.exit();
@@ -85,9 +96,16 @@ class Sand {
 }
 
 const sand = [];
-for (let i = 1; i < Infinity; i++) {
+for (let i = 1; i < 100; i++) {
   sand[i] = new Sand(i, 0, 500);
   while (sand[i].stop === false) {
     sand[i].fall();
   }
+  console.log(sand[i].r, sand[i].c, sand[i].stop);
+  if (sand[i].r === 0 && sand[i].c === 500 && sand[i].stop === true) {
+    console.log(`sand ${sand[i].name} blocked the hole`);
+    break;
+  }
 }
+
+// print(cave);
